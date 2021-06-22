@@ -6,6 +6,7 @@ import Kendo from './kendo';
 import MaterialGrid from './materialGrid';
 import ScrollInfinite from './infiniteScroll.js';
 import InfiniteMaterialGrid from './infiniteMaterialGrid.js';
+import InfiniteGrid from './infiniteGrid';
 import reportWebVitals from './reportWebVitals';
 import {  Router, Route } from 'react-router';
 // import { createBrowserHistory } from 'history'
@@ -19,7 +20,7 @@ ReactDOM.render(
 			<Route path="/kendo" component={Kendo} />
 			<Route path="/mgrid" component={MaterialGrid} />
 			<Route path="/iscroll" component={ScrollInfinite} />
-			<Route path="/iMscroll" component={InfiniteMaterialGrid} />
+			<Route path="/iMscroll" component={InfiniteGrid} />
 		</div>
 	</Router>,
 	document.getElementById('root')

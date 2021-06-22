@@ -6,9 +6,11 @@ import Button from '@material-ui/core/Button';
 
 
 import { DataGrid } from '@material-ui/data-grid';
-import products from './productLimited.json';
+// import products from './productLimited.json';
 
 import InfiniteScroll from "react-infinite-scroll-component";
+import namor from "namor";
+
 
 function mySelectedData() {
 
@@ -24,39 +26,42 @@ function mySelectedData() {
   }
 }
 
+
+var products = [{
+  "id": 1555,
+  "ProductName": "Sudish Shrestha",
+  "QuantityPerUnit": "10 boxes x 20 bags",
+  "UnitPrice": 18.0000,
+  "Discontinued": false,
+}]
+var tempData = products;
+
+var counter = 0;
+for (var i = 0; i < 25; i++) {
+  
+  
+  var temp = { "id": i, "ProductName":  namor.generate({ words: 1, numbers: 0 }), "QuantityPerUnit":  namor.generate({ words: 1, numbers: 0 }), "UnitPrice":  namor.generate({ words: 0, numbers: 1 }), "Discontinued": false }
+  products.push(temp)
+  counter++;
+}
 const defaultState = {
   selectedData: []
 }
 
-var product_data = products
+// var product_data = products
 const fetchMoreData = () => {
   setTimeout(() => {
 
     console.log("Scrolled")
-    const obj = Object.entries(products)
-
-    // obj.forEach(([key, value]) => console.log(key, value))
-
-
-    var addedData={
-      "id" : 1555,
-      "ProductName" : "Sudish Shrestha",
-      "SupplierID" : 1,
-      "CategoryID" : 1,
-      "QuantityPerUnit" : "10 boxes x 20 bags",
-      "UnitPrice" : 18.0000,
-      "UnitsInStock" : 39,
-      "UnitsOnOrder" : 0,
-      "ReorderLevel" : 10,
-      "Discontinued" : false,
-      "Category" : {
-          "CategoryID" : 1,
-          "CategoryName" : "Beverages",
-          "Description" : "Soft drinks, coffees, teas, beers, and ales"
-      }
-  }
-    obj.push(addedData)
-    product_data =JSON.stringify(obj)
+    products = [{
+      "id": 1555,
+      "ProductName": "Sudish Shrestha",
+      "QuantityPerUnit": "10 boxes x 20 bags",
+      "UnitPrice": 18.0000,
+      "Discontinued": false,
+    }]
+    // forceUpdate()
+// debugger;
 
   }, 1500);
 };
@@ -113,22 +118,22 @@ function InfiniteMaterialGrid() {
               hasMore={true}
               loader={<h4>Loading more 2 itens...</h4>}
             >
-              <DataGrid 
-                  checkboxSelection 
-                  rows={products} 
-                  columns={columns} 
-                  autoHeight={true}
-                  onRowSelected={(e) => console.log("selected rowData:", e.products)}
-                  onSelectionModelChange={(e) => {
-                    const selectedIDs = new Set(e.selectionModel);
-                    const selectedRowData = products.filter((row) =>
-                      selectedIDs.has(row.id)
-                    );
-                    defaultState.selectedData = selectedRowData
-                    console.log("selected rowData:", selectedRowData);
-                      
-                  }} 
-                  />
+              <DataGrid
+                checkboxSelection
+                rows={products}
+                columns={columns}
+                autoHeight={true}
+                onRowSelected={(e) => console.log("selected rowData:", e.products)}
+                onSelectionModelChange={(e) => {
+                  const selectedIDs = new Set(e.selectionModel);
+                  const selectedRowData = products.filter((row) =>
+                    selectedIDs.has(row.id)
+                  );
+                  defaultState.selectedData = selectedRowData
+                  console.log("selected rowData:", selectedRowData);
+
+                }}
+              />
 
             </InfiniteScroll>
           </div>
